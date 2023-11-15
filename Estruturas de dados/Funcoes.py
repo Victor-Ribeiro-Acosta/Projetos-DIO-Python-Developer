@@ -11,7 +11,7 @@ def soma(numero1, numero2):
 
 # Retornando valores
 
-def operacos_aritmeticas(numero1, operador, numero2):
+def operacoes_aritmeticas(numero1, operador, numero2):
 
     if operador == '+':
         return numero1 + numero2
@@ -30,8 +30,3 @@ def operacos_aritmeticas(numero1, operador, numero2):
     
     else:
         return "Operação inválida"
-
-
-#   *args - usado para passar tuplas e listas
-#   **args - usado para passar um dicionário
-
