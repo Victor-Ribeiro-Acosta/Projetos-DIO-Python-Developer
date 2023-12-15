@@ -44,7 +44,6 @@ def deposito(valor_deposito, saldo, extrato):
     return saldo, extrato
 
 
-
 def sacar(*, valor_saque, numero_saque, saldo, limite, extrato):
     if valor_saque <= 0:
         print("Valor inválido!")
@@ -69,7 +68,8 @@ def sacar(*, valor_saque, numero_saque, saldo, limite, extrato):
     -> Total na conta:  R${saldo}
 
     """
-        
+    return saldo, extrato
+
 def mostra_extrato(saldo,/,*,extrato):
     print(extrato)
 
@@ -110,7 +110,6 @@ def criar_usuario(cpf, lista_usuarios, lista_contas):
         nome:   {conta_usuario['usuario']}"""
 
 
-
 def conta(agencia, numero, contas):
         
     if len(numero) != 6:
@@ -131,7 +130,13 @@ def conta(agencia, numero, contas):
         return False
 
 
-
+def listar_contas():
+    for conta in lista_contas:
+        print("="*len(conta['usuario']))
+        print(f"Agencia - {conta['agencia']}")
+        print(f"Número - {conta['numero']}")
+        print(f"Usuário - {conta['usuario']}")
+        print(f"CPF - {conta['cpf']}")
 
 
 
@@ -140,14 +145,15 @@ def conta(agencia, numero, contas):
 # Sistema
 while True:
 
-    print('Para encerrar processo, digite "sair" ')
-    respota_conta = str(input('Você já é nosso cliente [sim/não]-> '))
+    tela = "cc - Criar conta\nac - Acessar conta\nlc - Ver lista de contas\ns - Sair\nInforme sua opção -> "
+
+    respota_conta = str(input(tela))
 
     if respota_conta.lower() == "sair":
         break
 
 
-    if respota_conta.lower() == 'sim':
+    if respota_conta.lower() == 'ac':
         numero_agencia = str(input('Informe o número da agencia-> '))
         numero_conta = str(input("Informe o número da conta -> "))
 
@@ -158,11 +164,11 @@ while True:
 
                 if operacao == 1:
                     valor = float(input('Informe o valor a ser depositado -> '))
-                    deposito(valor, saldo, extrato)
+                    saldo, extrato = deposito(valor, saldo, extrato)
                 
                 elif operacao == 2:
                     saque = float(input('Informe o valor de saque -> '))
-                    sacar(valor_saque=saque, numero_saque=numero_saques, saldo=saldo, limite=limite, extrato=extrato)
+                    saldo, extrato = sacar(valor_saque=saque, numero_saque=numero_saques, saldo=saldo, limite=limite, extrato=extrato)
                 
                 elif operacao == 3:
                     mostra_extrato(saldo, extrato=extrato)
@@ -173,10 +179,17 @@ while True:
                 else:
                     print('Opção inválida!')
 
-    elif respota_conta.lower() == 'não':
+    elif respota_conta.lower() == 'lc':
+        listar_contas()
+    
+    elif respota_conta.lower() == 'cc':
         cpf = str(input("Digite seu cpf sem [.] ou [-] -> "))
         informacao_conta = criar_usuario(cpf, lista_usuarios, lista_contas)
         print(informacao_conta)
+    
+    elif respota_conta.lower() == 's':
+        print('Encerrando Seção!')
+        break
 
     else:
         print('Opção inválida!')
